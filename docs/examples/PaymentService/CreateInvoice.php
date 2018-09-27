@@ -16,7 +16,7 @@
     $createSessionRequest = new CreateSessionRequest($env['wsdl_location']['session_service'], $env['options']);
     $createSessionResponse = $createSessionRequest->create([ 'request' => $env['credentials'] ]);
 
-    $createOrderRequest = new CreateOrderRequest($endpoints['order_service'], $env['options']);
+    $createOrderRequest = new CreateOrderRequest($env['wsdl_location']['order_service'], $env['options']);
     $createOrderResponse = $createOrderRequest->create([
       'session' => $createSessionResponse,
       'request' => [
