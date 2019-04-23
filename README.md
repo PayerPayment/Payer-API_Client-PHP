@@ -9,9 +9,15 @@
 
 ## Getting Started
 
-Examples are located in `docs/examples/**`.
+First, you need to install dependencies using composer.
 
-### Configuration
+```
+php $PATH_TO_COMPOSER/composer.phar install
+```
+
+Next, look at the code examples in `docs/examples/**`.
+
+### Running - configuration
 
 Copy and rename the file `env.example.php` located in the directory `config` to `env.php` and enter your values.
 
