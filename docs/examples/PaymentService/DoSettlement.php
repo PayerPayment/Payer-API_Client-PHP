@@ -17,13 +17,20 @@
     $createSessionRequest = new CreateSessionRequest($env['wsdl_location']['session_service'], $env['options']);
     $createSessionResponse = $createSessionRequest->create([ 'request' => $env['credentials'] ]);
 
-    $getPendingSettlementsRequest = new GetPendingSettlementsRequest($env['wsdl_location']['payment_service'], $options);
+    $getPendingSettlementsRequest = new GetPendingSettlementsRequest($env['wsdl_location']['payment_service'], $env['options']);
     $getPendingSettlementsResponse = $getPendingSettlementsRequest->create([
       'session' => $createSessionResponse,
       'request' => [
         'orderId' => 111222333
       ]
     ]);
+
+    var_dump($getPendingSettlementsResponse);
+
+    if (!property_exists($getPendingSettlementsResponse, 'settlements')) {
+        echo "FAIL: Unexpected state in test: No pending settlements for order\n";
+	exit(1);
+    }
 
     $pendingSettlements = $getPendingSettlementsResponse->settlements;
     if (!is_array($pendingSettlements))
