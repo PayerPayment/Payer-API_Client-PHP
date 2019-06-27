@@ -105,6 +105,8 @@
       ]
     ]);
 
+    var_dump($createOrderResponse);
+
     $approveOrderRequest = new ApproveOrderRequest($env['wsdl_location']['order_service'], $env['options']);
     $approveOrderResponse = $approveOrderRequest->create([
       'session' => $createSessionResponse,

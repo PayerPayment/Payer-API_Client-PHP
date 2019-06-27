@@ -182,6 +182,7 @@ $env = include(dirname(__FILE__) . "/../../../config/env.php");
     $destroySessionRequest->create([ 'request' => $createSessionResponse ]);
 
   } catch (Exception $e) {
+    echo "Exception: $e";
     echo json_encode([
       'message' => $e->getMessage(),
       'faultCode' => $e->detail->PayerFault->faultCode

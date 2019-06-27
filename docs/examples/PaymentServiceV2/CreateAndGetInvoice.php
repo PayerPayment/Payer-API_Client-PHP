@@ -15,6 +15,7 @@ $env = include(dirname(__FILE__) . "/../../../config/env.php");
     $createSessionRequest = new CreateSessionRequest($env['wsdl_location']['session_service'], $env['options']);
     $createSessionResponse = $createSessionRequest->create([ 'request' => $env['credentials'] ]);
 
+    echo "Will call createOrder\n";
     $createOrderRequest = new CreateOrderRequest($env['wsdl_location']['order_service'], $env['options']);
     $createOrderResponse = $createOrderRequest->create([
       'session' => $createSessionResponse,
@@ -46,7 +47,7 @@ $env = include(dirname(__FILE__) . "/../../../config/env.php");
             'streetAddress2' => null,
             'coAddress' => null,
             'houseAddress' => null,
-            'zipCode' => '',
+            'zipCode' => '12345',
             'city' => '',
             'state' => null,
             'countryCode' => 'SE',
@@ -104,6 +105,7 @@ $env = include(dirname(__FILE__) . "/../../../config/env.php");
       ]
     ]);
 
+    echo "Will call createInvoiceV2\n";
     $createInvoiceRequest = new CreateInvoiceRequest($env['wsdl_location']['payment_service_v2'], $env['options']);
     $createInvoiceResponse = $createInvoiceRequest->create([
       'session' => $createSessionResponse,
@@ -112,10 +114,11 @@ $env = include(dirname(__FILE__) . "/../../../config/env.php");
       ]
     ]);
 
-    echo("createInvoiceV2 response\n:");
+    echo("createInvoiceV2 response\n");
     var_dump($createInvoiceResponse);
 
 
+    echo "Will call getInvoiceV2\n";
     $getInvoiceRequest = new GetInvoiceRequest($env['wsdl_location']['payment_service_v2'], $env['options']);
     $getInvoiceResponse = $getInvoiceRequest->create([
       'session' => $createSessionResponse,
@@ -124,10 +127,11 @@ $env = include(dirname(__FILE__) . "/../../../config/env.php");
       ]
     ]);
 
-    echo("getInvoiceV2 response\n:");
+    echo("getInvoiceV2 response\n");
     var_dump($createInvoiceResponse);
     
 
+    echo "Will call destroySession\n";
     $destroySessionRequest = new DestroySessionRequest($env['wsdl_location']['session_service'], $env['options']);
     $destroySessionRequest->create([ 'request' => $createSessionResponse ]);
 
