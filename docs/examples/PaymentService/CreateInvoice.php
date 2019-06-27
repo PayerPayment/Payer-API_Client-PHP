@@ -16,6 +16,7 @@
     $createSessionRequest = new CreateSessionRequest($env['wsdl_location']['session_service'], $env['options']);
     $createSessionResponse = $createSessionRequest->create([ 'request' => $env['credentials'] ]);
 
+    echo "Will call createOrder\n";
     $createOrderRequest = new CreateOrderRequest($env['wsdl_location']['order_service'], $env['options']);
     $createOrderResponse = $createOrderRequest->create([
       'session' => $createSessionResponse,
@@ -105,6 +106,7 @@
       ]
     ]);
 
+    echo "Will call approveOrder\n";
     $approveOrderRequest = new ApproveOrderRequest($env['wsdl_location']['order_service'], $env['options']);
     $approveOrderResponse = $approveOrderRequest->create([
       'session' => $createSessionResponse,
@@ -113,6 +115,7 @@
       ]
     ]);
 
+    echo "Will call createInvoice\n";
     $createInvoiceRequest = new CreateInvoiceRequest($env['wsdl_location']['payment_service'], $env['options']);
     $createInvoiceResponse = $createInvoiceRequest->create([
       'session' => $createSessionResponse,
@@ -127,12 +130,16 @@
       ]
     ]);
 
+    echo "createInvoice response\n";
     var_dump($createInvoiceResponse);
 
+    echo "Will call destroySession\n";
     $destroySessionRequest = new DestroySessionRequest($env['wsdl_location']['session_service'], $env['options']);
     $destroySessionRequest->create([ 'request' => $createSessionResponse ]);
 
   } catch (Exception $e) {
+    echo "Got exception!\n";
+    echo $e;
     echo json_encode([
       'message' => $e->getMessage(),
       'faultCode' => $e->detail->PayerFault->faultCode
