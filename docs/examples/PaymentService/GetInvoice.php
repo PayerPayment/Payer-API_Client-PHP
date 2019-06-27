@@ -48,7 +48,7 @@
             'streetAddress2' => null,
             'coAddress' => null,
             'houseAddress' => null,
-            'zipCode' => '',
+            'zipCode' => '12345',
             'city' => '',
             'state' => null,
             'countryCode' => 'SE',
